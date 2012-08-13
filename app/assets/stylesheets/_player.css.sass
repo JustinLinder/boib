@@ -1,0 +1,153 @@
+.jp-audio
+  .jp-interface
+    +clearfix
+    +background-gradient
+    position: fixed
+    top: 40px
+    right: 0
+    width: 280px
+    padding: 10px
+
+    ul.jp-controls
+      +clearfix
+      +horizontal-list(0)
+      padding: 4px 0
+
+      li
+        a
+          +button
+          display: block
+          width: 24px
+          height: 24px
+          line-height: 22px
+          text-align: center
+          background-position: 50% 50%
+          background-repeat: no-repeat
+          margin: 0 3px
+
+          .iconic
+            font-size: 9px
+
+          &.jp-repeat, &.jp-repeat-off, &.jp-shuffle, &.jp-shuffle-off
+            line-height: 24px
+            .iconic
+              font-size: 12px
+
+          &.jp-repeat, &.jp-repeat-off
+            line-height: 26px
+
+          &.jp-repeat-off, &.jp-shuffle-off
+            +button-off
+
+    .jp-progress
+      +clearfix
+      +inset-shadow
+      +border-radius(5px)
+      margin: 4px 0
+      padding: 0
+      width: 100%
+      height: 20px
+      overflow: hidden
+      background-color: alpha-black(0.1)
+
+      .jp-seek-bar, .jp-play-bar
+        +border-radius(5px)
+        height: 100%
+        cursor: pointer
+        overflow: hidden
+
+      .jp-seek-bar
+        background-color: alpha-black(0.10)
+
+      .jp-play-bar
+        background-color: alpha-black(0.25)
+
+    .jp-current-holder
+      +clearfix
+      overflow: visible
+      margin-bottom: 10px
+
+      .jp-current-artwork
+        +artwork
+        float: left
+        height: 50px
+        width: 50px
+
+      .jp-current-info-holder
+        +ellipsis
+        padding: 0 10px
+        line-height: 16px
+
+        .jp-current-title
+          font-size: 13px
+
+        .jp-current-title, .jp-current-artist
+          font-weight: bold
+
+        .jp-current-release
+          font-size: 10px
+
+    .jp-time-holder
+      +clearfix
+      font-size: 11px
+      padding: 0 4px
+
+      .jp-current-time
+        float: left
+      .jp-duration
+        float: right
+
+
+  .jp-playlist
+    +clearfix
+    +shadow
+
+    ul
+      +no-bullets
+      position: fixed
+      top: 190px
+      bottom: 0
+      right: 0
+      width: 300px
+      margin: 0
+      padding: 0
+      overflow-y: scroll
+
+      li
+        float: none
+        +embossed-separator
+
+        &:hover
+          background-color: alpha-white(0.05)
+
+          &.jp-playlist-current
+            background-color: alpha-black(0.5)
+
+        &.jp-playlist-current
+          background-color: alpha-black(0.5)
+
+          a
+            color: $text-emphasis-color
+
+        div
+          +clearfix
+          .jp-playlist-item-remove
+            float: right
+
+          .jp-playlist-item
+            +ellipsis
+            display: block
+            font-weight: bold
+
+            .jp-artist
+              color: $text-color
+              font-weight: normal
+
+          a
+            color: $text-emphasis-color
+            text-shadow: none
+            padding: 4px 8px
+
+            &:hover
+              text-decoration: none
+

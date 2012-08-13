@@ -1,0 +1,26 @@
+.page-header
+  .pull-right
+    = resource.listeners
+    listeners on
+    = link_to "last.fm", resource.lastfm_url
+
+  %strong= resource.name
+  = play_link([resource, :tracks], :class => "button")
+  = enqueue_link([resource, :tracks], :class => "button")
+  = favorite_link(resource, :class => "button")
+  .genres= raw resource.tags_array.map { |tag| link_to tag, artists_path(:search => {:tagged => tag}) }.join("&nbsp;")
+
+.releases
+  - resource.releases.each do |release|
+    = render release
+
+.page-header
+  %strong Similar Artists
+
+.grid
+  - resource.similar.map do |artist|
+    .artist
+      .image{:style => "background-image: url(#{artist.image_url})"}
+        = link_to(iconic("e048"), [artist, :tracks], "data-play" => true)
+
+      .name= link_to(artist.name, artist_path(artist))

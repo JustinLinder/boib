@@ -1,0 +1,30 @@
+.page-header
+  = filter(:default, :favorited)
+  %strong Releases
+
+
+.wrapper
+  = semantic_form_for(:search, :url => collection_path, :method => :get) do |f|
+    = f.inputs do
+      = f.input :name_like
+      = f.submit "Search"
+
+%table
+  %thead
+    %tr
+      %th= sort_link(:name)
+      %th= sort_link(:tracks_count)
+      %th= sort_link(:created_at)
+      %th
+  %tbody
+    - collection.each do |resource|
+      %tr
+        %td= link_to resource.name, resource, :class => "title"
+        %td= resource.tracks_count
+        %td= time_ago_in_words resource.created_at
+        %td.actions
+          = play_link([resource, :tracks])
+          = enqueue_link([resource, :tracks])
+          = favorite_link(resource)
+
+= paginate(collection)

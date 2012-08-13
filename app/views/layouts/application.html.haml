@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %title Jukebox2
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    %link{:href => image_path("favicon.ico"), :rel => "shortcut icon", :type => "image/x-icon"}
+    = csrf_meta_tags
+  %body
+    .topbar
+      .fill
+        .container
+          = link_to "Jukebox2", root_path, :class => "brand"
+          %ul.nav
+            %li= link_to "Artists", artists_path
+            %li= link_to "Releases", releases_path
+            %li= link_to "Tracks", tracks_path
+            %li= link_to "Sources", sources_path
+
+          = form_for(:search, :url => tracks_path, :method => :get, :html => {:class => "pull-right"}) do |f|
+            %fieldset.inputs
+              %ol
+                %li= text_field_tag "search[title_or_artist_name_or_release_name_like]"
+
+    .container
+      .content= yield
+      = render "layouts/player"

@@ -1,0 +1,28 @@
+= div_for(release) do
+  .artwork
+    .wrapper
+      .image{:style => "background-image: url(#{release.image_url.blank? ? image_path("no_cover.png") : release.image_url})"}
+      .meta
+        .title= release.title
+        .artist= release.compilation? ? "Various Artists" : link_to(release.artist.name, release.artist)
+        .year= release.year
+        %br
+        = play_link([release, :tracks], :class => "button")
+        = enqueue_link([release, :tracks], :class => "button")
+        = favorite_link(release, :class => "button")
+
+  .tracks
+    %table
+      %tbody
+        - release.tracks.map do |track|
+          %tr
+            %td.number= track.number
+            %td.title
+              = track.title
+              - if track.artist.present?
+                %small= link_to track.artist.name, artist_path(track.artist)
+            %td.length= formatted_length track.length
+            %td.actions
+              = play_link(track)
+              = enqueue_link(track)
+              = favorite_link(track)

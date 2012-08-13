@@ -1,0 +1,24 @@
+.page-header
+  .pull-right
+    - if Jukebox2::Indexer.running?
+      Scan in progress
+    - else
+      = link_to "Scan Sources", reindex_sources_path, :class => "button", :disable => "Working"
+
+  %strong Sources
+
+.wrapper
+  = semantic_form_for(resource) do |f|
+    = f.inputs :path
+    = f.buttons
+
+%table
+  %thead
+    %tr
+      %th Path
+      %th Date
+  %tbody
+    - collection.each do |resource|
+      %tr
+        %td= resource.path
+        %td= time_ago_in_words resource.created_at

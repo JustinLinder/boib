@@ -1,0 +1,38 @@
+.page-header
+  %strong Dashboard
+
+.span-one-third
+  .wrapper
+    .panel
+      %h2 Recenlty added releases
+      %ul
+        - Release.recent(20).map do |resource|
+          %li
+            %span= link_to(resource.name, resource)
+            %small= time_ago_in_words(resource.created_at)
+
+.span-one-third
+  .wrapper
+    .panel
+      %h2 Recenlty favorited artists
+      %ul
+        - Artist.favorited.limit(10).map do |resource|
+          %li
+            %span= link_to(resource.name, resource)
+            %small= time_ago_in_words(resource.favorited_at)
+
+    .panel
+      %h2 Recenlty added artists
+      %ul
+        - Artist.recent(10).map do |resource|
+          %li
+            %span= link_to(resource.name, resource)
+            %small= time_ago_in_words(resource.created_at)
+
+.span-one-third
+  .wrapper
+    .panel
+      %h2 Top Genres
+      %ul
+        - Artist.tags_with_weight.sort_by{|tag, count| count}.reverse.take(20).map do |tag, count|
+          %li= link_to("#{tag} (#{count})", artists_path(:search => {:tagged => tag}))
